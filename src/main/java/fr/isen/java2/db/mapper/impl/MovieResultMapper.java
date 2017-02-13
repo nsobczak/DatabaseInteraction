@@ -7,6 +7,7 @@ import fr.isen.java2.db.mapper.ResultMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class MovieResultMapper implements ResultMapper<Movie>
 
     public MovieResultMapper()
     {
-        this.movieList = null;
+        this.movieList = new ArrayList<>();
     }
 
 
