@@ -40,13 +40,11 @@ public class MovieDaoImpl implements fr.isen.java2.db.daos.MovieDao
     {
         String sqlQuery = "INSERT INTO movie(title,release_date,genre_id,duration,director,summary) " +
                 "VALUES(?,?,?,?,?,?)";
-        ResultMapper resultMapper = QueryExecutor.executeUpdateQuery(sqlQuery,
+        ResultMapper generatedKeysMapper = QueryExecutor.executeUpdateQuery(sqlQuery,
                 movie.getTitle(), movie.getReleaseDate(),
-                movie.getGenre(), movie.getDuration(),
+                movie.getGenre().getId(), movie.getDuration(),
                 movie.getDirector(), movie.getSummary());
-
-        //TODO: set movie id
-
+        movie.setId(generatedKeysMapper.getParsedList().isEmpty() ? null : (Integer) generatedKeysMapper.getParsedList().get(0));
         return movie;
     }
 
