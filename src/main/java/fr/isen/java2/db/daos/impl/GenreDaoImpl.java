@@ -27,14 +27,10 @@ public class GenreDaoImpl implements fr.isen.java2.db.daos.GenreDao
     @Override
     public Genre getGenre(String name) throws Exception
     {
-        Genre returnedGenre = null;
         GenreResultMapper genreResultMapper = new GenreResultMapper();
         String sqlQuery = "SELECT * FROM genre WHERE name = ?";
         QueryExecutor.executeSelectQuery(sqlQuery, genreResultMapper, name);
-        if (!genreResultMapper.getParsedList().isEmpty()){
-            returnedGenre = genreResultMapper.getParsedList().get(0);
-        }
-        return returnedGenre;
+        return (genreResultMapper.getParsedList().isEmpty()) ? null : genreResultMapper.getParsedList().get(0);
     }
 
 
