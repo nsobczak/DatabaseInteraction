@@ -55,24 +55,9 @@ public class GenreDaoImpl implements fr.isen.java2.db.daos.GenreDao
     @Override
     public void addGenre(String name) throws Exception
     {
-        try (Connection connection = DataSourceFactory.getDataSource().getConnection())
-        {
-            String sqlQuery = "INSERT INTO genre(name) VALUES(?)";
-            try (PreparedStatement statement = connection.prepareStatement(sqlQuery))
-            {
-                statement.setString(1, name);
-                int nbRows = statement.executeUpdate();
-                System.out.println(String.format("%d row(s) has been inserted.", nbRows));
-            } catch (SQLException e)
-            {
-                e.printStackTrace();
-            }
-        } catch (SQLException e)
-        {
-            System.out.println("not inserted");
-            e.printStackTrace();
-        }
+        String sqlQuery = "INSERT INTO genre(name) VALUES(?)";
+        QueryExecutor.executeUpdateQuery(sqlQuery, name);
     }
-
+    
 
 }
