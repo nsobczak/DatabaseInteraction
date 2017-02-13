@@ -23,8 +23,9 @@ public class GenreResultMapper implements ResultMapper<Genre>
 
     public GenreResultMapper()
     {
-        this.genreList = null;
+        this.genreList = new ArrayList<>();
     }
+
 
     @Override
     public List<Genre> getParsedList() throws SQLException

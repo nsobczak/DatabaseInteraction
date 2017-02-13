@@ -17,6 +17,18 @@ public class MovieResultMapper implements ResultMapper<Movie>
     private List<Movie> movieList;
 
 
+    public MovieResultMapper()
+    {
+        this.movieList = null;
+    }
+
+
+    public MovieResultMapper(List<Movie> returnedList)
+    {
+        this.movieList = returnedList;
+    }
+
+
     @Override
     public List<Movie> getParsedList() throws SQLException
     {

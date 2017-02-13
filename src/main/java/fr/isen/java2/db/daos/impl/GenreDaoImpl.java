@@ -28,26 +28,12 @@ public class GenreDaoImpl implements fr.isen.java2.db.daos.GenreDao
     public Genre getGenre(String name) throws Exception
     {
         Genre returnedGenre = null;
-        try (Connection connection = DataSourceFactory.getDataSource().getConnection())
-        {
-            String sqlQuery = "SELECT * FROM genre WHERE name = ?";
-            try (PreparedStatement statement = connection.prepareStatement(sqlQuery))
-            {
-                statement.setString(1, name);
-                ResultSet resultSet = statement.executeQuery();
-                if (resultSet.next())
-                {
-                    returnedGenre = new Genre(resultSet.getInt("idgenre"), resultSet.getString("name"));
-                }
-            } catch (SQLException e)
-            {
-                e.printStackTrace();
-            }
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
+        GenreResultMapper genreResultMapper = new GenreResultMapper();
+        String sqlQuery = "SELECT * FROM genre WHERE name = ?";
+        QueryExecutor.executeSelectQuery(sqlQuery, genreResultMapper, name);
+        if (!genreResultMapper.getParsedList().isEmpty()){
+            returnedGenre = genreResultMapper.getParsedList().get(0);
         }
-
         return returnedGenre;
     }
 
@@ -58,6 +44,6 @@ public class GenreDaoImpl implements fr.isen.java2.db.daos.GenreDao
         String sqlQuery = "INSERT INTO genre(name) VALUES(?)";
         QueryExecutor.executeUpdateQuery(sqlQuery, name);
     }
-    
+
 
 }
